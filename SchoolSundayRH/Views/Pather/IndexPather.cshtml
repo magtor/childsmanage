@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Niños";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="card-body table-responsive p-0">
+    <a asp-controller="Pather" asp-action="CreatePather">Registar Padres</a>
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Primer Nombre</th>
+                <th>Segundo Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>               
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pather in ViewBag.Pathers)
+            {
+            <tr>
+                <td>@pather.Padreid</td>
+                <td>@pather.Nombre1</td>
+                <td>@pather.Nombre2</td>
+                <td>@pather.Apellido1</td>
+                <td>@pather.Apellido2</td>
+
+                <td><a asp-action="EditPather" asp-route-id="@pather.Padreid">Editar</a></td>
+                <td><a asp-action="AsociarPadre" asp-route-id="@pather.Padreid">Asociar</a></td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

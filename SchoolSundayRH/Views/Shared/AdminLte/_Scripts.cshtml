@@ -1,0 +1,198 @@
+﻿<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<!--<script src="plugins/jquery/jquery.min.js"></script>-->
+<script src="~/themeadminlte/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<!--<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+<script src="~/themeadminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/themeadminlte/dist/js/adminlte.min.js"></script>
+<!--<script src="dist/js/adm-->
+<script src="~/themeadminlte/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+<script src="~/js/site.js"></script>
+<script>
+    $(document).ready(
+        function () {
+            var HijoId= $("Hijos").val();
+            var PlaceHoldeElement = $('#PlaceHolderMaster');
+            var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
+            $('button[data-toggle="ajax-master"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHoldeElement.html(data);
+                    PlaceHoldeElement.find('.modal').modal('show');
+
+                });
+
+            });
+
+
+
+            $("#teacherForm").submit(function (event) {
+                submitForm();
+                return false;
+            });
+
+            $("#PatherSonForm").submit(function (event) {
+                saveson();
+                return false;
+            });
+            var date_input = $('input[name="Fechanacimiento"]'); //our date input has the name "Fechanacimiento"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+               format: 'dd-mm-yyyy',
+               container: container,
+               todayHighlight: true,
+               autoclose: true,
+
+
+            };
+            date_input.datepicker(options);
+
+            function submitForm() {
+
+                var actionUrl = $('form#teacherForm').url.actionUrl();
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    cache: false,
+                    data: $('form#teacherForm').serialize(),
+                    success: function (response) {
+                        // $("#contact").html(response)
+                        $("#addMaster").modal('hide');
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+            // <  WIDTH='20' HEIGHT='20'input type="button" value="Remove" name="Remove" class="btn btn-danger" onclick='RemoveItem(this)'/>
+            //'<input type="button" value="Remove" name="Remove" class="btn btn-danger" onclick="RemoveItem(this)"/>
+            $("#btnAddToList").click(function () {
+                //AddToSonToList();
+                AgregarFilaALista();
+            })
+            function AgregarFilaALista(){
+                var ItemId = $("#Hijo").val();
+                var ItemName = $("#Hijo option:selected").text();
+               /* var ItemList = '<tr id="fila'+ItemId+'"><td hidden>F</td><td hidden><input  type="text"  value="'+ ItemId+
+                    '"/></td><td>'+ItemName+'</td>'+'<td><input type="checkbox" name="record"></td></tr>';
+                $('#tblhijosItemID').append(ItemList);*/
+                var ItemList = '<tr id="fila'+ItemId+'"><td hidden>F</td><td hidden>'+ItemId+
+                    '</td><td>'+ItemName+'</td>'+'<td><input type="checkbox" name="record"></td></tr>';
+                $('#tblhijosItemID').append(ItemList);
+            }
+            function AddToSonToList() {
+                var tblItemList = $("#tblhijosItemID")
+                var ItemId = $("#Hijo").val();
+                var ItemName = $("#Hijo option:selected").text();
+                var ItemList = "<tr><td>F</td><td>" + ItemId +
+                    "</td><td >" + ItemName + "</td><td>" +
+                    "<input type='button' value='Remove' name='Remove' class='btn btn-danger' onclick='RemoveItem(this)'/></td></tr>";
+                tblItemList.append(ItemList);
+            }
+
+            $(".delete-row").click(function () {
+                $("table tbody").find('input[name="record"]').each(function () {
+                    if ($(this).is(":checked")) {
+                        $(this).parents("tr").remove();
+                    }
+                });
+            });
+            function RemoveItem(ItemRow) {
+               // $(ItemId).closest('tr').remove();
+                //$(ItemId).remove();
+               // $('table#tblhijosItemID tr#' + ItemRow).remove();
+                $('#' + ItemRow).remove();
+            }
+
+            // or you can use bellow line also
+            //$('#tblhijosItemID tr#'+id).remove();
+
+            $("#saveOrder").click(function (e)  {
+                  e.preventDefault();
+                 // var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
+                  //var actionUrl = $('form#PatherSonForm').url.actionUrl();
+                  var padres = {};
+                  var listapatherson = new Array();
+                  /*padres.Padreid = $("#Padreid").val();
+                  padres.Nombre1 = $("#Nombre1").val();
+                  padres.Nombre2 = "Ramon";
+                  padres.Apellido1 = "Ramon";
+                  padres.Apellido2 = "Ramon";
+                  padres.Telefono = "25421634";
+                  padres.Email = "25421634";
+                  padres.Sexo = "M";*/
+                  padres.Nombre1 = "Sergio"
+                  padres.Apellido1 = "Coronado";
+
+                  $.each($("#tblhijosItemID tbody tr"), function () {
+
+                      var listHijos = {};
+                      listHijos.Padreid = $("#Padreid").val();
+                      listHijos.Childid = $(this).find("td:eq(1)").html();
+                      listapatherson.push(listHijos);
+                  });
+                  padres.listapatherson = listapatherson;
+                  //url: '/Pather/CreatePadreHijos?json=' + JSON.stringify(padres),
+                  $.ajax({
+                      contentType: 'application/json; charset=utf-8',
+                      dataType: 'JSON',
+                      type: 'POST',
+                      url: '/Pather/CreatePadreHijos?json=' + JSON.stringify(padres),
+                      succes: function (data) {
+
+                      },
+                      error: function (err) {
+                          console.log(err);
+                      }
+                  });
+
+            });
+
+
+            function saveOrder(data) {
+                return $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "/Pather/CreatePadreHijos",
+                    data: data
+                });
+            }
+
+
+
+            $("#saveOrder1").click(function (e) {
+                e.preventDefault();
+
+                var orderArr = [];
+                orderArr.length = 0;
+                $.each($("#tblhijosItemID tbody tr"), function () {
+                    orderArr.push({
+                        Padreid: $("#Padreid").val(),
+                        Childid: $(this).find('td:eq(1)').html()
+                    });
+                });
+
+                var data = JSON.stringify({
+                    Nombre1: "Sergio",
+                    Apellido1: "Coronado",
+                    listapatherson: orderArr
+                });
+                $.when(saveOrder(data)).then(function (response) {
+                    console.log(response);
+                }).fail(function (err) {
+                    alert(data);
+                });
+            });
+
+
+
+    })
+
+</script>
