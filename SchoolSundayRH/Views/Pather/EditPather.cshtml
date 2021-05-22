@@ -49,9 +49,8 @@
                     <label for="exampleInputSexo">Sexo</label>
                     <input type="text" class="form-control" asp-for="Sexo" name="Sexo" placeholder="Sexo">
                 </div>
-                <div class="form-group" col-md-6>
-                    <label for="exampleInputAsignarPadre">AsignarPadre</label>
-                    <a asp-action="_AsociarPadre" asp-route-id="@Model.Padreid">Asociar</a>
+                <div class="form-group" col-md-6>                 
+                    
                     <div id="PlaceHolderPather"></div>
                     <button type="button" class="btn btn-primary" data-toggle="ajax-pather" data-target="#addPatherChild"
                             data-url="@Url.Action("_AsociarPadre", new {id= @Model.Padreid })">
