@@ -15,6 +15,7 @@
         function () {
             var HijoId= $("Hijos").val();
             var PlaceHoldeElement = $('#PlaceHolderMaster');
+            var PlaceHoldePatherElement = $('#PlaceHolderPather');
             var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
             $('button[data-toggle="ajax-master"]').click(function (event) {
 
@@ -29,7 +30,18 @@
 
             });
 
+            $('button[data-toggle="ajax-pather"]').click(function (event) {
 
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHoldePatherElement.html(data);
+                    PlaceHoldePatherElement.find('.modal').modal('show');
+
+                });
+
+            });
 
             $("#teacherForm").submit(function (event) {
                 submitForm();

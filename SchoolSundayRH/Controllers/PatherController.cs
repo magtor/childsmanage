@@ -107,8 +107,8 @@ namespace SchoolSundayRH.Controllers
             return RedirectToAction("IndexPather") ;
         }
         [HttpGet]
-        [Route("AsociarPadre")]
-        public ActionResult AsociarPadre(uint id)
+        [Route("_AsociarPadre")]
+        public ActionResult _AsociarPadre(uint id)
         {
             var countpatherson = (from ph in dbSchoolSunday.Padreshijos
                                   where ph.Padreid == id
@@ -134,7 +134,7 @@ namespace SchoolSundayRH.Controllers
             ViewBag.items = items;
             ViewBag.ItemsHijosDePadre = objPatherRepositoy.GetListSonFromPather(id);
 
-            return View("AsociarPadre");
+            return PartialView("_AsociarPadre");
         }
 
         // GET: PatherController/Delete/5
