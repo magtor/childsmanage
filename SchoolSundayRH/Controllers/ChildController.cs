@@ -55,8 +55,8 @@ namespace SchoolSundayRH.Controllers
 
         // POST: ChildController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Childs child)
+        
+        public ActionResult Edit1(int id, Childs child)
         {
             /*try
             {*/

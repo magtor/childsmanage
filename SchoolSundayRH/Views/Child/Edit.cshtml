@@ -11,8 +11,9 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form asp-action="Create1">
+    <form asp-action="Edit1">
         <div class="card-body">
+            <input type="hidden" asp-for="Childid" />
             <div class="form-row">
                 <div class="form-group" col-md-6>
                     <label for="exampleInputNombre1">Primer Nombre</label>
@@ -46,7 +47,9 @@
             <div id="PlaceHolderHere"></div>
             <div class="form-row">
                 <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#asociarPadre"
-                        data-url="@Url.Action("AsociarPadre")">Create</button>
+                        data-url="@Url.Action("AsociarPadre")">
+                    Create
+                </button>
             </div>
         </div>
         <!-- /.card-body -->
