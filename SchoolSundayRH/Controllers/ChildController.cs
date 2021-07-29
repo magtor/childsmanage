@@ -56,11 +56,13 @@ namespace SchoolSundayRH.Controllers
         // POST: ChildController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Childs child)
         {
             /*try
             {*/
-                return RedirectToAction(nameof(Index));
+            dbSchoolSunday.Entry(child).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            dbSchoolSunday.SaveChanges();
+            return RedirectToAction(nameof(Index));
             /*}
             catch
             {*/
