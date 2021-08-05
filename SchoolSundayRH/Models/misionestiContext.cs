@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -25,6 +24,7 @@ namespace SchoolSundayRH.Models
         public virtual DbSet<Listardetalle> Listardetalle { get; set; }
         public virtual DbSet<Login> Login { get; set; }
         public virtual DbSet<Maestros> Maestros { get; set; }
+        public virtual DbSet<Materia> Materia { get; set; }
         public virtual DbSet<Padres> Padres { get; set; }
         public virtual DbSet<Padreshijos> Padreshijos { get; set; }
         public virtual DbSet<Porceptrimestre> Porceptrimestre { get; set; }
@@ -35,8 +35,8 @@ namespace SchoolSundayRH.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-         //To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;port=3306;database=misionesti;uid=sergiocm;password=Th2022kkll;Convert Zero Datetime=True", x => x.ServerVersion("10.4.17-mariadb"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseMySql("server=localhost;port=3306;database=misionesti;uid=sergiocm;password=Th2022kkll", x => x.ServerVersion("10.4.17-mariadb"));
             }
         }
 
@@ -110,6 +110,10 @@ namespace SchoolSundayRH.Models
                 entity.Property(e => e.Maestroid)
                     .HasColumnName("maestroid")
                     .HasColumnType("int(10)");
+
+                entity.Property(e => e.Materiaid)
+                    .HasColumnName("materiaid")
+                    .HasColumnType("int(10) unsigned");
             });
 
             modelBuilder.Entity<Listardetalle>(entity =>
@@ -219,6 +223,22 @@ namespace SchoolSundayRH.Models
                     .IsRequired()
                     .HasColumnName("telefono")
                     .HasColumnType("varchar(12)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+            });
+
+            modelBuilder.Entity<Materia>(entity =>
+            {
+                entity.ToTable("materia");
+
+                entity.Property(e => e.Materiaid)
+                    .HasColumnName("materiaid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasColumnName("descripcion")
+                    .HasColumnType("varchar(15)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
             });

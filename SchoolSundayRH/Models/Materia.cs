@@ -7,11 +7,9 @@ using System.Collections.Generic;
 
 namespace SchoolSundayRH.Models
 {
-    public partial class Listarcabecera
+    public partial class Materia
     {
-        public uint Plistaid { get; set; }
-        public DateTime Fechalista { get; set; }
-        public int Maestroid { get; set; }
         public uint Materiaid { get; set; }
+        public string Descripcion { get; set; }
     }
 }

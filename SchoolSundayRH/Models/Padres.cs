@@ -11,7 +11,7 @@ namespace SchoolSundayRH.Models
     {
         public Padres()
         {
-            Padreshijos = new List<Padreshijos>();
+            Padreshijos = new HashSet<Padreshijos>();
         }
 
         public uint Padreid { get; set; }

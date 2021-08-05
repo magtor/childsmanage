@@ -34,15 +34,20 @@ namespace SchoolSundayRH.Controllers
             return View("Create");
         }
 
-        // POST: ChildController/Create
-        [Route("Create1")]
-        [HttpPost]       
+        // POST: ChildController/Create      
+
+        //[Route("Create1")]
+        [HttpPost]
         public ActionResult Create1(Childs child)
         {
-            dbSchoolSunday.Childs.Add(child);
-            dbSchoolSunday.SaveChanges();
-            return RedirectToAction(nameof(Index));
-           
+            if (ModelState.IsValid) { 
+             dbSchoolSunday.Childs.Add(child);
+             dbSchoolSunday.SaveChanges();
+              return RedirectToAction(nameof(Index));
+            }
+            else
+              return View("Create");
+
         }
 
         // GET: ChildController/Edit/5
@@ -68,6 +73,10 @@ namespace SchoolSundayRH.Controllers
             {*/
                 //return View();
             //}
+        }
+        public ActionResult TomarAsistencia()
+        {
+
         }
 
         // GET: ChildController/Delete/5
