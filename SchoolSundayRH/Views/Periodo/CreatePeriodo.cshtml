@@ -1,0 +1,75 @@
+﻿@model SchoolSundayRH.Models.Periodos;
+@{
+    ViewData["Title"] = "Periodo";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Registrar Periodo Anual</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form asp-action="CreatePeriodo1">
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group" col-md-6>
+                    <label for="exampleInputNombre1">Descripcion</label>
+                    <input type="text" class="form-control" asp-for="Descripcion" placeholder="Descrípcion">
+
+
+                </div>
+                <div class="form-group" col-md-6>
+                    <label for="exampleInputNombre2">Fecha Inicicio</label>
+                    <input type="text" class="form-control" asp-for="Fechainicio" name="Fechainicio" id="fechaini" placeholder="Fechainicio">
+
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group" col-md-6>
+                    <label for="exampleInputApellido1">Fecha Fin</label>
+                    <input type="text" class="form-control" asp-for="Fechafin" name="Fechafin" id="fechafin" placeholder="Fechafin">
+
+                </div>
+                <div class="form-group" col-md-6>
+                    <label for="exampleInputApellido2">Estado</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="Estado" id="PeriodoEstado" asp-for="Estado" value="A">
+                        <label class="form-check-label" for="PeriodoEstado">
+                            Periodo Abierto
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="Estado" id="PeriodoEstado1" asp-for="Estado" checked value="C">
+                        <label class="form-check-label" for="PeriodoEstado1">
+                            Periodo Cerrado
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+            @if (ViewBag.cantrecord == 0)
+            {
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            }
+            @if(ViewBag.cantrecord >  0)
+            {
+              <button type="submit" class="btn btn-primary" disabled>Guardar</button>
+            }
+
+        </div>
+
+    </form>
+    @if (ViewBag.Alert != null)
+    {
+        <script>
+            alert("@ViewBag.Alert");
+        </script>
+    }

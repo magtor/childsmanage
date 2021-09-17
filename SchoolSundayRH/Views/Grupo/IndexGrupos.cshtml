@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Niños";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="card-body table-responsive p-0">
+    <a asp-controller="Grupo" asp-action="CreateGrupo">Agregar Grupo</a>
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Descripcion</th>               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var grupo in ViewBag.Grupos)
+            {
+                <tr>
+                    <td>@grupo.Grupoid</td>
+                    <td>@grupo.Descripcion</td>
+                    <td>@grupo.Fecha</td>
+                    <td><a asp-action="Edit" asp-route-id="@grupo.Grupoid">Editar</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

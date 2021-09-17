@@ -63,7 +63,12 @@
 
             };
             date_input.datepicker(options);
+            var date_inputfechini = $('input[name="Fechainicio"]'); //our date input has the name "Fechanacimiento"
+            
+            date_inputfechini.datepicker(options);
+            var date_inputfechfin = $('input[name="Fechafin"]'); //our date input has the name "Fechanacimiento"
 
+            date_inputfechfin.datepicker(options);
             function submitForm() {
 
                 var actionUrl = $('form#teacherForm').url.actionUrl();
@@ -163,6 +168,17 @@
                           console.log(err);
                       }
                   });
+
+            });
+            $("#fechafin").blur(function () {
+                var sfechaini = $("#fechaini").val();
+                var sfechafin = $("#fechafin").val();
+                var dfechaini = sfechaini.split("-");
+                var dfechafin = sfechafin.split("-");
+                if (dfechaini[1] > dfechafin[1]) {
+                    alert("la fecha final tiene que ser mayor");
+                }
+               
 
             });
 

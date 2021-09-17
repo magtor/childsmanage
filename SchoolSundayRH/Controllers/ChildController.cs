@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SchoolSundayRH.Models;
+using SchoolSundayRH.Repository;
 namespace SchoolSundayRH.Controllers
 {
     public class ChildController : Controller
@@ -76,7 +77,20 @@ namespace SchoolSundayRH.Controllers
         }
         public ActionResult TomarAsistencia()
         {
-
+            ChildRepository objChildRepositoy = new ChildRepository();
+            List<Maestros> lstteachers = null;
+            //crearemos un Select donde podremos escoger el maestro.
+            lstteachers = objChildRepositoy.ListTeachers();
+            List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> ItemsMaestros = lstteachers.ConvertAll(ch =>
+            {
+                return new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem()
+                {
+                    Text = ch.Nombre1.ToString(),
+                    Value = ch.Maestroid.ToString(),
+                };
+            });
+            ViewBag.ItemsTeacher = ItemsMaestros;
+            return View("PasarLista");
         }
 
         // GET: ChildController/Delete/5

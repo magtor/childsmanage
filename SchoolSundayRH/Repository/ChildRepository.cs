@@ -23,5 +23,18 @@ namespace SchoolSundayRH.Repository
                          ).ToList();
             return listmaestros;
         }
+        public List<Maestros> ListTeachers()
+        {
+            List<Maestros> listmaestros = null;
+            listmaestros = (from tch in dbSchoolSunday.Maestros                            
+                            select new Maestros
+                            {
+                                Maestroid = tch.Maestroid,
+                                Nombre1 = tch.Nombre1
+
+                            }
+                         ).ToList();
+            return listmaestros;
+        }
     }
 }
