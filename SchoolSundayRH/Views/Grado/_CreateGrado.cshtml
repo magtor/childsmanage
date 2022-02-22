@@ -1,0 +1,31 @@
+﻿@model SchoolSundayRH.Models.Grados;
+<div class="modal fade" id="addGrados">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addGradoLabel">Crear Grado/Año</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="gradoForm" asp-action="CreateGrado1">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group" col-md-6>
+                                <label for="exampleInputNombre1">Grado</label>
+                                <input type="text" class="form-control" asp-for="Descripcion" placeholder="Grado">
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" data-save="modal">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

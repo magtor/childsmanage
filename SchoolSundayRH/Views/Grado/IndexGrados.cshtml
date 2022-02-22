@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Grados";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="card-body table-responsive p-0">
+    <div id="PlaceHolderGrados"></div>
+    <button type="button" class="btn btn-primary" data-toggle="ajax-grados" data-target="#addGrados"
+            data-url="@Url.Action("_CreateGrado")">
+        Agregar Grado
+    </button>
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var grado in ViewBag.grados)
+            {
+                <tr>
+                    <td>@grado.Gradoid</td>
+                    <td>@grado.Descripcion</td>
+
+
+                    <td><a asp-action="EditGrado" asp-route-id="@grado.Gradoid">Editar</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

@@ -16,7 +16,15 @@
             var HijoId= $("Hijos").val();
             var PlaceHoldeElement = $('#PlaceHolderMaster');
             var PlaceHoldePatherElement = $('#PlaceHolderPather');
+            var PlaceHolderSeccion = $('#PlaceHolderSeccion');
+            var PlaceHolderDetalleSeccElement = $('#PlaceHolderDetalleSecc');
+            var PlaceHolderGrados = $('#PlaceHolderGrados');
+             var PlaceHolderNiveles = $('#PlaceHolderNiveles');
+
             var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
+
+
+
             $('button[data-toggle="ajax-master"]').click(function (event) {
 
 
@@ -43,6 +51,93 @@
 
             });
 
+            $('button[data-toggle="ajax-secciones"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderSeccion.html(data);
+                    PlaceHolderSeccion.find('.modal').modal('show');
+
+                });
+
+            });
+
+            $('button[data-toggle="ajax-detasecc"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderDetalleSeccElement.html(data);
+                    PlaceHolderDetalleSeccElement.find('.modal').modal('show');
+
+                });
+
+            });
+
+            $('button[data-toggle="ajax-grados"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderGrados.html(data);
+                    PlaceHolderGrados.find('.modal').modal('show');
+
+                });
+
+            });
+            $('button[data-toggle="ajax-niveles"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderNiveles.html(data);
+                    PlaceHolderNiveles.find('.modal').modal('show');
+
+                });
+
+            });
+
+
+            $("#imageBrowser").change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+
+
+            })
+
+            var ReadImage = function (file) {
+                var reader = new FileReader;
+                var image = new Image;
+                reader.readAsDataURL(file);
+                reader.onload = function (_file) {
+                    image.src = _file.target.result;
+                    image.onload = function () {
+                        var height = this.height;
+                        var width = this.width;
+                        var type = file.type;
+                        var size = ~~(file.size / 1024) + "KB";
+                        $("#targetImg").attr('src', _file.target.result);
+                        //$("#description").text("Size:" + size + "," + height + "x" + width + "," + type + "");
+                        $("#imgPreview").show();
+
+                    }
+                }
+            }
+
+            var UploadImage = function () {
+                var file = $("#imageBrowser").get(0).files;
+                var data = new FormData;
+                data.append("ImageFile", file[0]);
+               // data.append("ProductName"
+            }
+
             $("#teacherForm").submit(function (event) {
                 submitForm();
                 return false;
@@ -52,6 +147,25 @@
                 saveson();
                 return false;
             });
+
+             $("#seccionForm").submit(function (event) {
+                saveSeccion();
+                return false;
+             });
+
+            $("#seccionGrado").submit(function (event) {
+                saveGrado();
+                return false;
+            });
+            $("#nivelForm").submit(function (event) {
+                saveNivel();
+                return false;
+            });
+            /*$("#detalleseccForm").submit(function (event) {
+                saveDetalleSeccion();
+                return false;
+            });*/
+
             var date_input = $('input[name="Fechanacimiento"]'); //our date input has the name "Fechanacimiento"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             var options = {
@@ -64,11 +178,12 @@
             };
             date_input.datepicker(options);
             var date_inputfechini = $('input[name="Fechainicio"]'); //our date input has the name "Fechanacimiento"
-            
+
             date_inputfechini.datepicker(options);
             var date_inputfechfin = $('input[name="Fechafin"]'); //our date input has the name "Fechanacimiento"
 
             date_inputfechfin.datepicker(options);
+
             function submitForm() {
 
                 var actionUrl = $('form#teacherForm').url.actionUrl();
@@ -81,6 +196,89 @@
                     success: function (response) {
                         // $("#contact").html(response)
                         $("#addMaster").modal('hide');
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+            function saveNivel() {
+
+                var actionUrl = $('form#nivelForm').url.actionUrl();
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    cache: false,
+                    data: $('form#nivelForm').serialize(),
+                    success: function (response) {
+                        // $("#contact").html(response)
+                        $("#addNiveles").modal('hide');
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+            function saveSeccion() {
+
+                var actionUrl = $('form#seccionForm').url.actionUrl();
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    cache: false,
+                    data: $('form#seccionForm').serialize(),
+                    success: function (response) {
+                        // $("#contact").html(response)
+                        $("#addSecciones").modal('hide');
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+
+            function saveDetalleSeccion() {
+
+                var actionUrl = $('form#detalleseccForm').url.actionUrl();
+                var detsecc = {};
+
+                detsecc.Capacidad = $('#inCapacidad').val();
+                detsecc.Seccionid = $('#Letra').val();
+                detsecc.Vacantes = $('Vacantes').val();
+                detsecc.Periodoid = $('#DetSeccPeriodo').val();
+                detsecc.Gradoid = $('#SelGrado').val();
+                detsecc.Nivelid = $('#Nivel').val();                
+
+                $.ajax({
+                    type: "POST",    
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    url: '/DetalleSecc/CreateDetSeccion1?json=' + JSON.stringify(detsecc),             
+                   
+                    success: function (response) {
+                        // $("#contact").html(response)
+                        $("#addDetalleSecc").modal('hide');
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+
+            function saveGrado() {
+
+                var actionUrl = $('form#gradoForm').url.actionUrl();
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    cache: false,
+                    data: $('form#gradoForm').serialize(),
+                    success: function (response) {
+                        // $("#contact").html(response)
+                        $("#addgrados").modal('hide');
                     },
                     error: function () {
                         alert("Error");
@@ -130,6 +328,32 @@
             // or you can use bellow line also
             //$('#tblhijosItemID tr#'+id).remove();
 
+            $('body').on('click', '#saveDetSecc', function () {
+                var detsecc = {};
+
+                detsecc.Capacidad = $('#inCapacidad').val();
+                detsecc.Seccionid = $('#Letra').val();
+                detsecc.Vacantes = $('Vacantes').val();
+                detsecc.Periodoid = $('#DetSeccPeriodo').val();
+                detsecc.Gradoid = $('#SelGrado').val();
+                detsecc.Nivelid = $('#Nivel').val();
+                
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'JSON',
+                    type: 'POST',
+                    url: '/DetalleSecc/CreateDetSeccion1?json=' + JSON.stringify(detsecc),
+                    succes: function (data) {
+
+                       
+                    },
+                    error: function (err) {
+                       // console.log(err);
+                        $("#addDetalleSecc").modal('hide');
+                        window.location.href = "/DetalleSecc/IndexDetalleSecc";
+                    }
+                });
+            });
             $("#saveOrder").click(function (e)  {
                   e.preventDefault();
                  // var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
@@ -144,7 +368,7 @@
                   padres.Telefono = "25421634";
                   padres.Email = "25421634";
                   padres.Sexo = "M";*/
-                  padres.Nombre1 = "Sergio"
+                  padres.Nombre1 = "Sergio";
                   padres.Apellido1 = "Coronado";
 
                   $.each($("#tblhijosItemID tbody tr"), function () {
@@ -170,6 +394,9 @@
                   });
 
             });
+            
+           
+
             $("#fechafin").blur(function () {
                 var sfechaini = $("#fechaini").val();
                 var sfechafin = $("#fechafin").val();
@@ -178,7 +405,7 @@
                 if (dfechaini[1] > dfechafin[1]) {
                     alert("la fecha final tiene que ser mayor");
                 }
-               
+
 
             });
 
@@ -193,6 +420,14 @@
                 });
             }
 
+            function myFunction() {
+                alert('This is an alert message.');
+            }
+
+            /*$('[id*=Grado]').on('change', function () {
+                //window.location = document.getElementById("menu").value;
+                myFunction();
+            });        */
 
 
             $("#saveOrder1").click(function (e) {
@@ -220,6 +455,18 @@
             });
 
 
+
+           /* $("select[id ^='SelGrado']").change(function () {
+                //alert($('option: selected', $(this)).text());
+                $('#inCapacidad').val("GeeksForGeeks");
+            });
+            function ddListChange() {
+                //alert($('#LetraSel option: selected').text());
+                $('#inCapacidad').val("GeeksForGeeks");
+            }*/
+            /*$('body').on('change', '#SelGrado', function () {
+                $('#inCapacidad').val(this.value);
+            });*/
 
     })
 

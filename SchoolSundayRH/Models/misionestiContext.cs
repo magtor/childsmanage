@@ -53,7 +53,7 @@ namespace SchoolSundayRH.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;port=3306;ConvertZeroDateTime=True;database=misionesti;uid=sergiocm;password=Th2022kkll", x => x.ServerVersion("10.4.17-mariadb"));
+                optionsBuilder.UseMySql("server=localhost;port=3306;database=misionesti;uid=sergiocm;password=Th2022kkll", x => x.ServerVersion("10.4.17-mariadb"));
             }
         }
 
@@ -111,6 +111,12 @@ namespace SchoolSundayRH.Models
                     .IsRequired()
                     .HasColumnName("nombre2")
                     .HasColumnType("varchar(15)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.Photo)
+                    .HasColumnName("photo")
+                    .HasColumnType("varchar(160)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
@@ -398,6 +404,9 @@ namespace SchoolSundayRH.Models
                 entity.HasIndex(e => e.Gradoid)
                     .HasName("fk_gradoid_detsecciones");
 
+                entity.HasIndex(e => e.Nivelid)
+                    .HasName("fk_nivel_id");
+
                 entity.HasIndex(e => e.Periodoid)
                     .HasName("fk_secc_periodoid");
 
@@ -414,6 +423,10 @@ namespace SchoolSundayRH.Models
 
                 entity.Property(e => e.Gradoid)
                     .HasColumnName("gradoid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.Nivelid)
+                    .HasColumnName("nivelid")
                     .HasColumnType("int(10) unsigned");
 
                 entity.Property(e => e.Periodoid)
@@ -433,6 +446,12 @@ namespace SchoolSundayRH.Models
                     .HasForeignKey(d => d.Gradoid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_gradoid_detsecciones");
+
+                entity.HasOne(d => d.Nivel)
+                    .WithMany(p => p.Detallessecciones)
+                    .HasForeignKey(d => d.Nivelid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_nivel_id");
 
                 entity.HasOne(d => d.Periodo)
                     .WithMany(p => p.Detallessecciones)
@@ -879,7 +898,7 @@ namespace SchoolSundayRH.Models
                 entity.Property(e => e.Descripcion)
                     .IsRequired()
                     .HasColumnName("descripcion")
-                    .HasColumnType("varchar(4)")
+                    .HasColumnType("varchar(25)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 

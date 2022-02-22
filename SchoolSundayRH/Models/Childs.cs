@@ -25,6 +25,7 @@ namespace SchoolSundayRH.Models
         public string Sexo { get; set; }
         public string Estado { get; set; }
         public string Direccion { get; set; }
+        public string Photo { get; set; }
 
         public virtual ICollection<Detallematriculas> Detallematriculas { get; set; }
         public virtual ICollection<Padreshijos> Padreshijos { get; set; }

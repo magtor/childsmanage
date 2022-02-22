@@ -12,6 +12,7 @@ namespace SchoolSundayRH.Models
         public Niveles()
         {
             Cursosniveles = new HashSet<Cursosniveles>();
+            Detallessecciones = new HashSet<Detallessecciones>();
             Horariosniveles = new HashSet<Horariosniveles>();
         }
 
@@ -19,6 +20,7 @@ namespace SchoolSundayRH.Models
         public string Descripcion { get; set; }
 
         public virtual ICollection<Cursosniveles> Cursosniveles { get; set; }
+        public virtual ICollection<Detallessecciones> Detallessecciones { get; set; }
         public virtual ICollection<Horariosniveles> Horariosniveles { get; set; }
     }
 }

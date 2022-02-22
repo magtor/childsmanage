@@ -22,7 +22,7 @@ namespace SchoolSundayRH.Controllers
         {
             List<Periodos> lstperiodos = null;
             PeriodoRepository objPeriodoRepositoy = new PeriodoRepository();
-            lstperiodos = objPeriodoRepositoy.GetListFromPeriodos();
+            lstperiodos = objPeriodoRepositoy.GetPeriodoAbierto();
             ViewBag.cantrecord = 0;
             if(lstperiodos.Count > 0)
             {
@@ -47,10 +47,13 @@ namespace SchoolSundayRH.Controllers
         }
         public ActionResult EditPeriodo(uint id)
         {
+            List<Periodos> lstperiodos = null;
+            PeriodoRepository objPeriodoRepositoy = new PeriodoRepository();
+            lstperiodos = objPeriodoRepositoy.GetListFromPeriodos(id);
+            ViewBag.bPeriodos = lstperiodos;
             return View("EditPeriodo", dbSchoolSunday.Periodos.Find(id));
         }
-        [HttpPost]
-        //[Route("EditPather1")]
+        [HttpPost]        
         public ActionResult EditPeriodo1(uint id, Periodos periodo)
         {
             dbSchoolSunday.Entry(periodo).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

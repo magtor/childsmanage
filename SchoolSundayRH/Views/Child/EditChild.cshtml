@@ -1,0 +1,88 @@
+﻿@model SchoolSundayRH.ViewModels.ChildViewModel;
+@{
+    ViewData["Title"] = "Periodo";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+    
+}
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Actualizar Niño</h3>
+    </div>
+    <form asp-action="Edit1" enctype="multipart/form-data">
+        <div class="card-body">
+
+            
+            @foreach (var child in ViewBag.Childs1)
+            {
+                var photopath = "~/images/" + (child.Photo ?? "noimage.png");
+                <input type="hidden" asp-for="Childid" value="@child.Childid"/>
+                <div class="row">
+                    <div class="col-4 text-center">
+
+                        <div class="custom-file">
+                            <input asp-for="Photo" class="form-control custom-file-input" id="imageBrowser">
+                            <label class="custom-file-label">Foto</label>
+                        </div>
+                        <div id="imgPreview" class="img-thumbnail" style="margin-top: 5px">
+                            <img class="img-responsive" id="targetImg" src="@photopath" asp-append-version="true">
+                            <div class="caption">
+                                <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                <span id="description"></span>
+                            </div>
+                            <a href="#" class="btn   btn-info btn-sm" id="uploadImage" onclick="UploadImage">Upload</a>
+                        </div>
+
+                    </div>
+                    <div class="col-8">
+
+                        <div class="row">
+
+                            <div class="form-group col-4 ">
+                                <label for="exampleInputNombre1">Primer Nombre</label>
+                                <input type="text" class="form-control" asp-for="Nombre1" Value="@child.Nombre1" placeholder="Primer Nombre">
+                                <span asp-validation-for="Nombre1" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4 ">
+                                <label for="exampleInputNombre2">Segundo Nombre</label>
+                                <input type="text" class="form-control" asp-for="Nombre2" value="@child.Nombre2" placeholder="Segundo Nombre">
+                                <span asp-validation-for="Nombre2" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4 ">
+                                <label for="exampleInputApellido1">Primer Apellido</label>
+                                <input type="text" class="form-control" asp-for="Apellido1" Value="@child.Apellido1" placeholder="Segundo Nombre">
+                                <span asp-validation-for="Apellido1" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-4 ">
+                                <label for="exampleInputApellido2">Segundo Apellido</label>
+                                <input type="text" class="form-control" asp-for="Apellido2" value="@child.Apellido2" placeholder="Segundo Apellido">
+                                <span asp-validation-for="Apellido2" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="exampleInputFechaNac">Fecha Nacimiento</label>
+                                <input type="text" class="form-control" asp-for="Fechanacimiento" name="Fechanacimiento" value="@child.Fechanacimiento" placeholder="Fecha Nacimiento">
+                                <span asp-validation-for="Fechanacimiento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="exampleInputSexo">Sexo</label>
+                                <input type="text" class="form-control" asp-for="Sexo" name="Sexo" value="@child.Sexo" placeholder="Sexo">
+                                <span asp-validation-for="Sexo" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            }
+        </div>
+            
+    </form>
+    
+</div>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Secciones";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="card-body table-responsive p-0">
+    <div id="PlaceHolderDetSecc"></div>
+    <button type="button" class="btn btn-primary" data-toggle="ajax-secciones" data-target="#addSecciones"
+            data-url="@Url.Action("_CreateSeccion")">
+        Agregar Letra
+    </button>
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var seccion in ViewBag.Secciones)
+            {
+                <tr>
+                    <td>@seccion.Seccionid</td>
+                    <td>@seccion.Descripcion</td>
+                   
+
+                    <td><a asp-action="EditSeccion" asp-route-id="@seccion.Seccionid">Editar</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

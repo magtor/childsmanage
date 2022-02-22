@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Maestros";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}<div class="card-body table-responsive p-0">
+    <div id="PlaceHolderDetalleSecc"></div>
+    <button type="button" class="btn btn-primary" data-toggle="ajax-detasecc" data-target="#addDetalleSecc"
+            data-url="@Url.Action("_CreateDetalleSecc")">
+        Registrar Seccion
+    </button>  
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                
+                <th>Letra</th>
+                <th>Grado</th>
+                <th>Nivel</th>
+                <th>Capacidad</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detallesecc in ViewBag.DetalleSec)
+            {
+                <tr>
+                    <td>@detallesecc.LetraDescripcion</td>
+                    <td>@detallesecc.GradoDescripcion</td>
+                    <td>@detallesecc.NivelDescripcion</td>
+                    <td>@detallesecc.Capacidad</td>
+
+                    <td><a asp-action="EditSeccion" asp-route-id="@detallesecc.Detalleseccionid">Editar</a></td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

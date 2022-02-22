@@ -36,5 +36,13 @@ namespace SchoolSundayRH.Repository
                          ).ToList();
             return listmaestros;
         }
+        public List<Childs> DatosNene(uint id)
+        {
+            List<Childs> datanene = null;
+            datanene = (from childs in dbSchoolSunday.Childs
+                        where childs.Childid == id
+                        select childs).ToList();
+            return datanene;
+        }
     }
 }

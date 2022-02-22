@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 <div class="card-body table-responsive p-0">
-    <a asp-controller="Child" asp-action="Create">Agregar Niños</a>
+    <a asp-controller="Child" asp-action="CreateChild">Agregar Niños</a>
     <table class="table table-hover text-nowrap">
         <thead>
             <tr>
@@ -14,11 +14,13 @@
                 <th>Segundo Apellido</th>
                 <th>Fecha Nac.</th>
                 <th>Sexo</th>
+                <th>Foto</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var child in ViewBag.Childs)
             {
+                var photopath = "~/images/" + (child.Photo ?? "noimage.png");
             <tr>
                 <td>@child.Childid</td>
                 <td>@child.Nombre1</td>
@@ -27,7 +29,8 @@
                 <td>@child.Apellido2</td>
                 <td>@child.Fechanacimiento</td>
                 <td>@child.Sexo</td>
-                <td><a  asp-action="Edit" asp-route-id="@child.Childid">Editar</a></td>
+                <td><img class="card-img-top" src="@photopath" asp-append-version="true" width="40" height="40"></td>
+                <td><a asp-action="EditChild" asp-route-id="@child.Childid">Editar</a></td>
             </tr>
             }
 

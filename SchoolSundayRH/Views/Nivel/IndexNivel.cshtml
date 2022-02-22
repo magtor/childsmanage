@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Niveles";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="card-body table-responsive p-0">
+    <div id="PlaceHolderNiveles"></div>
+    <button type="button" class="btn btn-primary" data-toggle="ajax-niveles" data-target="#addNiveles"
+            data-url="@Url.Action("_CreateNivel")">
+        Agregar Nivel
+    </button>
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var nivel in ViewBag.niveles)
+            {
+                <tr>
+                    <td>@nivel.Nivelid</td>
+                    <td>@nivel.Descripcion</td>
+
+
+                    <td><a asp-action="EditNivel" asp-route-id="@nivel.Nivelid">Editar</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
