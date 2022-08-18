@@ -5,25 +5,34 @@
 <!-- Bootstrap 4 -->
 <!--<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>-->
 <script src="~/themeadminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/themeadminlte/plugins/select2/js/select2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="~/themeadminlte/dist/js/adminlte.min.js"></script>
 <!--<script src="dist/js/adm-->
 <script src="~/themeadminlte/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+
 <script src="~/js/site.js"></script>
+
 <script>
     $(document).ready(
-        function () {
-            var HijoId= $("Hijos").val();
+        function () {           
+            
+            var HijoId = $("Hijos").val();
             var PlaceHoldeElement = $('#PlaceHolderMaster');
             var PlaceHoldePatherElement = $('#PlaceHolderPather');
             var PlaceHolderSeccion = $('#PlaceHolderSeccion');
             var PlaceHolderDetalleSeccElement = $('#PlaceHolderDetalleSecc');
+            var PlaceHolderEditDetalleSeccElement = $('#PlaceHolderEditDetalleSecc');
+            var PlaceHolderEditCurso = $('#PlaceHolderEditCurso');
+
             var PlaceHolderGrados = $('#PlaceHolderGrados');
-             var PlaceHolderNiveles = $('#PlaceHolderNiveles');
+            var PlaceHolderNiveles = $('#PlaceHolderNiveles');
+            var PlaceHolderTurnos = $('#PlaceHolderTurnos');
+            var PlaceHolderCursos = $('#PlaceHolderCursos');
 
             var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
 
-
+            //$("#seltipoevaluaciones").chosen();
 
             $('button[data-toggle="ajax-master"]').click(function (event) {
 
@@ -46,6 +55,18 @@
 
                     PlaceHoldePatherElement.html(data);
                     PlaceHoldePatherElement.find('.modal').modal('show');
+
+                });
+
+            });
+            $('button[data-toggle="ajax-turnos"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderTurnos.html(data);
+                    PlaceHolderTurnos.find('.modal').modal('show');
 
                 });
 
@@ -101,7 +122,43 @@
                 });
 
             });
+            $('button[data-toggle="ajax-editardetasecc"]').click(function (event) {
 
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderEditDetalleSeccElement.html(data);
+                    PlaceHolderEditDetalleSeccElement.find('.modal').modal('show');
+
+                });
+
+            });
+            $('button[data-toggle="ajax-editarcurso1"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderEditCurso.html(data);
+                    PlaceHolderEditCurso.find('.modal').modal('show');
+                    $("#FormaEval").select2();
+
+                });
+
+            });
+            $('button[data-toggle="ajax-cursos"]').click(function (event) {
+
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderCursos.html(data);
+                    PlaceHolderCursos.find('.modal').modal('show');
+
+                });
+
+            });
 
             $("#imageBrowser").change(function () {
                 var File = this.files;
@@ -159,6 +216,14 @@
             });
             $("#nivelForm").submit(function (event) {
                 saveNivel();
+                return false;
+            });
+            $("#cursoForm").submit(function (event) {
+                saveCurso();
+                return false;
+            });
+            $("#turnoForm").submit(function (event) {
+                saveTurno();
                 return false;
             });
             /*$("#detalleseccForm").submit(function (event) {
@@ -220,6 +285,42 @@
                     }
                 });
             }
+            function saveCurso() {
+
+                var actionUrl = $('form#cursoForm').url.actionUrl();
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    cache: false,
+                    data: $('form#cursoForm').serialize(),
+                    success: function (response) {
+                        // $("#contact").html(response)
+                        $("#addcursos").modal('hide');
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
+            function saveTurno() {
+
+                var actionUrl = $('form#turnoForm').url.actionUrl();
+
+                $.ajax({
+                    type: "POST",
+                    url: actionUrl,
+                    cache: false,
+                    data: $('form#turnoForm').serialize(),
+                    success: function (response) {
+                        // $("#contact").html(response)
+                        $("#addTurnos").modal('hide');
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                });
+            }
             function saveSeccion() {
 
                 var actionUrl = $('form#seccionForm').url.actionUrl();
@@ -249,14 +350,15 @@
                 detsecc.Vacantes = $('Vacantes').val();
                 detsecc.Periodoid = $('#DetSeccPeriodo').val();
                 detsecc.Gradoid = $('#SelGrado').val();
-                detsecc.Nivelid = $('#Nivel').val();                
+                detsecc.Nivelid = $('#Nivel').val();
+                detsecc.Turnoid = $('#Turno').val();
 
                 $.ajax({
-                    type: "POST",    
+                    type: "POST",
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    url: '/DetalleSecc/CreateDetSeccion1?json=' + JSON.stringify(detsecc),             
-                   
+                    url: '/DetalleSecc/CreateDetSeccion1?json=' + JSON.stringify(detsecc),
+
                     success: function (response) {
                         // $("#contact").html(response)
                         $("#addDetalleSecc").modal('hide');
@@ -337,7 +439,8 @@
                 detsecc.Periodoid = $('#DetSeccPeriodo').val();
                 detsecc.Gradoid = $('#SelGrado').val();
                 detsecc.Nivelid = $('#Nivel').val();
-                
+                detsecc.Turnoid = $('#Turno').val();
+
                 $.ajax({
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'JSON',
@@ -345,7 +448,7 @@
                     url: '/DetalleSecc/CreateDetSeccion1?json=' + JSON.stringify(detsecc),
                     succes: function (data) {
 
-                       
+
                     },
                     error: function (err) {
                        // console.log(err);
@@ -354,6 +457,34 @@
                     }
                 });
             });
+            $('body').on('click', '#editDetSecc', function () {
+                var detsecc = {};
+
+                detsecc.Detalleseccionid = $('#iddetallesec').val();
+                detsecc.Capacidad = $('#inCapacidad').val();
+                detsecc.Seccionid = $('#Letra').val();
+                detsecc.Vacantes = $('Vacantes').val();
+                detsecc.Periodoid = $('#DetSeccPeriodo').val();
+                detsecc.Gradoid = $('#SelGrado').val();
+                detsecc.Nivelid = $('#Nivel').val();
+
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'JSON',
+                    type: 'POST',
+                    url: '/DetalleSecc/EditarDetalleSecc1?json=' + JSON.stringify(detsecc),
+                    succes: function (data) {
+
+
+                    },
+                    error: function (err) {
+                        // console.log(err);
+                        $("#addDetalleSecc").modal('hide');
+                        window.location.href = "/DetalleSecc/IndexDetalleSecc";
+                    }
+                });
+            });
+
             $("#saveOrder").click(function (e)  {
                   e.preventDefault();
                  // var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
@@ -394,8 +525,8 @@
                   });
 
             });
-            
-           
+
+
 
             $("#fechafin").blur(function () {
                 var sfechaini = $("#fechaini").val();
@@ -467,7 +598,13 @@
             /*$('body').on('change', '#SelGrado', function () {
                 $('#inCapacidad').val(this.value);
             });*/
-
+           // $("#TipoEvaluaciones").chosen(); 
+            //$('.chosen-search').chosen();
+           // $("#TipoEvaluaciones").select2();
+           /* $('.listbox').multiselect({
+                includeSelectAllOption: true
+            });*/
+           
     })
 
 </script>

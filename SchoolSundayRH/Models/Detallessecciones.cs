@@ -16,10 +16,12 @@ namespace SchoolSundayRH.Models
         public uint Periodoid { get; set; }
         public uint Gradoid { get; set; }
         public uint Nivelid { get; set; }
+        public uint Turnoid { get; set; }
 
         public virtual Grados Grado { get; set; }
         public virtual Niveles Nivel { get; set; }
         public virtual Periodos Periodo { get; set; }
         public virtual Secciones Seccion { get; set; }
+        public virtual Turnos Turno { get; set; }
     }
 }

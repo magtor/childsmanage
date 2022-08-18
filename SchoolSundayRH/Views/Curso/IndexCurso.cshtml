@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Cursos";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="card-body table-responsive p-0">
+    <div id="PlaceHolderCursos"></div>
+    <button type="button" class="btn btn-primary" data-toggle="ajax-cursos" data-target="#addCursos"
+            data-url="@Url.Action("_CreateCurso")">
+        Agregar Curso
+    </button>
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var curso in ViewBag.Curso)
+            {
+                <tr>
+                    <td>@curso.Cursoid</td>
+                    <td>@curso.Descripcion</td>
+                    <td><div id="PlaceHolderEditCurso">
+                      <button type="button" class="btn btn-primary" data-toggle="ajax-editarcurso1" data-target="#EditarCurso"
+                        data-url="@Url.Action("_EditCurso",new {id=@curso.Cursoid})">
+                        Editar Seccion
+                    </button>
+                   </div></td>
+                   
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

@@ -46,14 +46,17 @@ namespace SchoolSundayRH.Models
         public virtual DbSet<Secciones> Secciones { get; set; }
         public virtual DbSet<Tallazapatos> Tallazapatos { get; set; }
         public virtual DbSet<Tipoevaluaciones> Tipoevaluaciones { get; set; }
+        public virtual DbSet<Trimestre> Trimestre { get; set; }
+        public virtual DbSet<Trimestreniv> Trimestreniv { get; set; }
         public virtual DbSet<Trimestreyear> Trimestreyear { get; set; }
+        public virtual DbSet<Turnos> Turnos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;port=3306;database=misionesti;uid=sergiocm;password=Th2022kkll", x => x.ServerVersion("10.4.17-mariadb"));
+                optionsBuilder.UseMySql("server=localhost;port=3306;database=misionesti;uid=sergiocm;password=Th2022kkll;ConvertZeroDateTime=True", x => x.ServerVersion("10.4.17-mariadb"));
             }
         }
 
@@ -413,6 +416,9 @@ namespace SchoolSundayRH.Models
                 entity.HasIndex(e => e.Seccionid)
                     .HasName("fk_seccionid");
 
+                entity.HasIndex(e => e.Turnoid)
+                    .HasName("fk_turno_id");
+
                 entity.Property(e => e.Detalleseccionid)
                     .HasColumnName("detalleseccionid")
                     .HasColumnType("int(10)");
@@ -435,6 +441,10 @@ namespace SchoolSundayRH.Models
 
                 entity.Property(e => e.Seccionid)
                     .HasColumnName("seccionid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.Turnoid)
+                    .HasColumnName("turnoid")
                     .HasColumnType("int(10) unsigned");
 
                 entity.Property(e => e.Vacantes)
@@ -464,6 +474,12 @@ namespace SchoolSundayRH.Models
                     .HasForeignKey(d => d.Seccionid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_seccionid");
+
+                entity.HasOne(d => d.Turno)
+                    .WithMany(p => p.Detallessecciones)
+                    .HasForeignKey(d => d.Turnoid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_turno_id");
             });
 
             modelBuilder.Entity<Dias>(entity =>
@@ -1031,6 +1047,62 @@ namespace SchoolSundayRH.Models
                     .HasCollation("utf8mb4_general_ci");
             });
 
+            modelBuilder.Entity<Trimestre>(entity =>
+            {
+                entity.ToTable("trimestre");
+
+                entity.Property(e => e.Trimestreid)
+                    .HasColumnName("trimestreid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.Fechafin)
+                    .HasColumnName("fechafin")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Fechaini)
+                    .HasColumnName("fechaini")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Numtrimestre)
+                    .HasColumnName("numtrimestre")
+                    .HasColumnType("int(11)");
+            });
+
+            modelBuilder.Entity<Trimestreniv>(entity =>
+            {
+                entity.ToTable("trimestreniv");
+
+                entity.HasIndex(e => e.Nivelid)
+                    .HasName("fk_nivtrim_id");
+
+                entity.HasIndex(e => e.Trimestreid)
+                    .HasName("fk_trimestre_id");
+
+                entity.Property(e => e.Trimestrenivid)
+                    .HasColumnName("trimestrenivid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.Nivelid)
+                    .HasColumnName("nivelid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.Trimestreid)
+                    .HasColumnName("trimestreid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.HasOne(d => d.Nivel)
+                    .WithMany(p => p.Trimestreniv)
+                    .HasForeignKey(d => d.Nivelid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_nivtrim_id");
+
+                entity.HasOne(d => d.Trimestre)
+                    .WithMany(p => p.Trimestreniv)
+                    .HasForeignKey(d => d.Trimestreid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_trimestre_id");
+            });
+
             modelBuilder.Entity<Trimestreyear>(entity =>
             {
                 entity.HasKey(e => e.Tyearid)
@@ -1054,6 +1126,25 @@ namespace SchoolSundayRH.Models
                     .IsRequired()
                     .HasColumnName("year")
                     .HasColumnType("varchar(5)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_general_ci");
+            });
+
+            modelBuilder.Entity<Turnos>(entity =>
+            {
+                entity.HasKey(e => e.Turnoid)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("turnos");
+
+                entity.Property(e => e.Turnoid)
+                    .HasColumnName("turnoid")
+                    .HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasColumnName("descripcion")
+                    .HasColumnType("varchar(25)")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
             });

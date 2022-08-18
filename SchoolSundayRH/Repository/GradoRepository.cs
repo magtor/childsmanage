@@ -23,6 +23,18 @@ namespace SchoolSundayRH.Repository
                          ).ToList();
             return listGrados;
         }
+        public List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> GradoSelected()
+        {
+            List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> gradolist = (from grads in dbSchoolSunday.Grados.AsEnumerable()
+                                                                                 select new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
+
+                                                                                 {
+                                                                                     Text = grads.Descripcion,
+                                                                                     Value = grads.Gradoid.ToString()
+
+                                                                                 }).ToList();
+            return gradolist;
+        }
     }
     
 }

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 using SchoolSundayRH.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SchoolSundayRH.Repository
 {
@@ -22,6 +23,18 @@ namespace SchoolSundayRH.Repository
                           }
                          ).ToList();
             return listSecciones;
+        }
+        public List<SelectListItem> LetraSelected()        
+        {
+            List<SelectListItem> letralist = (from leter in dbSchoolSunday.Secciones.AsEnumerable()
+                                                                                 select new SelectListItem 
+        
+                                                                                 {
+                                                                                     Text = leter.Descripcion,
+                                                                                     Value = leter.Seccionid.ToString()
+
+                                                                                 }).ToList();
+            return letralist;
         }
     }
 }

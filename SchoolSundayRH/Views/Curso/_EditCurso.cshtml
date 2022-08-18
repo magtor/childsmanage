@@ -1,0 +1,68 @@
+﻿@model SchoolSundayRH.Models.SelectedTipoEvaluaciones;
+@{
+    List<SelectListItem> itemsniveles = ViewBag.ItemNiveles;
+
+
+}
+<div class="modal fade" id="EditCurso">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addMasterLabel">Modificar Cursos</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Modificar Cursos</h3>
+                        </div>
+                        <form id="cursoForm" asp-controller="Curso" asp-action="SaveCursoEdit">
+                            <div class="card-body">
+                                <input type="hidden" id="Cursoid" name="Cursoid" asp-for="ID" />
+
+                                <div class="form-row">
+                                    <div class="form-group" col-md-6>
+                                        <label for="exampleInputNombre1">Curso</label>
+                                        @foreach (var cur in ViewBag.Curso)
+                                        {<div class="col-md-20">
+                                                <input type="text" class="form-control" name="Descripcion" id="Descripcion" placeholder="Descripcion" value="@cur.Descripcion">
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group" col-md-6>
+                                        <label for="exampleInputCapacidad">Nivel</label>
+                                        <div class="col-md-20">
+                                            <select name="Nivel" id="Nivel" class="form-control" asp-items="itemsniveles"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group" col-md-6>
+                                        <label for="exampleInputCapacidad">Forma Evaluacion</label>
+                                        <div class="col-md-20">
+                                            @Html.ListBoxFor(m => m.TipoEvaluacionIDs, Model.ItemList, new { id = "FormaEval", @class = "form-control", multiple = "multiple" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group" col-md-6>
+                                    <button type="submit" id="editcurso" class="btn btn-primary">Guardar</button>
+                                </div>
+                                </div>
+</form>
+    <!-- /.card-body -->
+                                           
+                                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

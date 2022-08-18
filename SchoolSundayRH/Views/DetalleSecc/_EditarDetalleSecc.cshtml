@@ -3,10 +3,9 @@
     List<SelectListItem> itemsgrados = ViewBag.ItemGrados;
     List<SelectListItem> itemsniveles = ViewBag.ItemNiveles;
     List<SelectListItem> itemsletras = ViewBag.Itemletras;
-    List<SelectListItem> itemsturnos = ViewBag.Itemturnos;
 
 }
-<div class="modal fade" id="addDetalleSecc">
+<div class="modal fade" id="EditDetalleSecc">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -23,10 +22,11 @@
                         </div>
                         <form id="detalleseccForm">
                             <div class="card-body">
+                                <input type="hidden" id ="iddetallesec" name="iddetallesec" value="@ViewBag.iddetsecc" />
                                 <input hidden id="DetSeccPeriodo" name="DetSeccPeriodo" value="@ViewBag.periodo" />
                                 <div class="form-row">
                                     <div class="form-group" col-md-6>
-                                        <label for="exampleInputLetra">Letra</label>
+                                        <label for="exampleInputNombre1">Letra</label>
                                         <div class="col-md-20">
                                             <select name="Letra" id="Letra" class="form-control" asp-items="itemsletras"></select>
                                         </div>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group" col-md-6>
-                                        <label for="exampleInputGrado">Grado/Año</label>
+                                        <label for="exampleInputNombre1">Grado/Año</label>
                                         <div class="col-md-20">
                                             <select name="SelGrado" id="SelGrado" class="form-control" asp-items="itemsgrados"></select>
                                             <input type="hidden" id="gradoid" />
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group" col-md-6>
-                                        <label for="exampleInputNivel">Nivel</label>
+                                        <label for="exampleInputNombre1">Nivel</label>
                                         <div class="col-md-20">
                                             <select name="Nivel" id="Nivel" class="form-control" asp-items="itemsniveles"></select>
                                         </div>
@@ -51,17 +51,9 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group" col-md-6>
-                                        <label for="exampleInputTurno">Turno</label>
-                                        <div class="col-md-20">
-                                            <select name="Turno" id="Turno" class="form-control" asp-items="itemsturnos"></select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group" col-md-6>
                                         <label for="exampleInputCapacidad">Capacidad</label>
                                         <div class="col-md-20">
-                                            <input type="text" name="inCapacidad" id="inCapacidad" class="form-control" placeholder="Capacidad">
+                                            <input type="text" name="inCapacidad" id="inCapacidad" class="form-control" placeholder="Capacidad" value="@ViewBag.capacidad">
                                         </div>
                                     </div>
                                 </div>
@@ -71,11 +63,11 @@
                         </form>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <button type="Button" id="saveDetSecc"  class="btn btn-primary">Guardar</button>
+                            <button type="Button" id="editDetSecc" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
+                </div>
             </div>
+        </div>
     </div>
-    </div>
-</div>
 </div>

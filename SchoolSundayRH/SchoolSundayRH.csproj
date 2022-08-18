@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="backupdb\**" />
+    <Content Remove="backupdb\**" />
+    <EmbeddedResource Remove="backupdb\**" />
+    <None Remove="backupdb\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Child\_AsociarPadre.cshtml" />
   </ItemGroup>
 
@@ -35,6 +42,7 @@
 
   <ItemGroup>
     <None Include="Views\Child\_AsociarPadre.cshtml" />
+    <None Include="wwwroot\themeadminlte\plugins\chosen\chosen.jquery.js" />
   </ItemGroup>
 
 </Project>

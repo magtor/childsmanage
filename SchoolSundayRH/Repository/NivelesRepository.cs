@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SchoolSundayRH.Models;
 namespace SchoolSundayRH.Repository
 {    
@@ -22,6 +23,17 @@ namespace SchoolSundayRH.Repository
                          ).ToList();
             return lisNiveles;
         }
+        public List<SelectListItem> NivelSelected()
+        {
+            List<SelectListItem> nivellist = (from levels in dbSchoolSunday.Niveles.AsEnumerable()
+                                                                                 select new SelectListItem
 
+                                                                                 {
+                                                                                     Text = levels.Descripcion,
+                                                                                     Value = levels.Nivelid.ToString()
+
+                                                                                 }).ToList();
+            return nivellist;
+        }
     }
 }

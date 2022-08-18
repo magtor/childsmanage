@@ -7,22 +7,16 @@ using System.Collections.Generic;
 
 namespace SchoolSundayRH.Models
 {
-    public partial class Niveles
+    public partial class Turnos
     {
-        public Niveles()
+        public Turnos()
         {
-            Cursosniveles = new HashSet<Cursosniveles>();
             Detallessecciones = new HashSet<Detallessecciones>();
-            Horariosniveles = new HashSet<Horariosniveles>();
-            Trimestreniv = new HashSet<Trimestreniv>();
         }
 
-        public uint Nivelid { get; set; }
+        public uint Turnoid { get; set; }
         public string Descripcion { get; set; }
 
-        public virtual ICollection<Cursosniveles> Cursosniveles { get; set; }
         public virtual ICollection<Detallessecciones> Detallessecciones { get; set; }
-        public virtual ICollection<Horariosniveles> Horariosniveles { get; set; }
-        public virtual ICollection<Trimestreniv> Trimestreniv { get; set; }
     }
 }

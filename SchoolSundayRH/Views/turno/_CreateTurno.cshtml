@@ -1,0 +1,31 @@
+﻿@model SchoolSundayRH.Models.Turnos;
+<div class="modal fade" id="addTurnos">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addGradoLabel">Crear Turnos</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="turnoForm" asp-action="CreateTurno1">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group" col-md-6>
+                                <label for="exampleInputNombre1">Turno</label>
+                                <input type="text" class="form-control" asp-for="Descripcion" placeholder="Turno">
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" data-save="modal">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
