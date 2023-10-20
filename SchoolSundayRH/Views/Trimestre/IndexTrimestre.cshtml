@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Trimestres";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="card-body table-responsive p-0">   
+    <div id="PlaceHolderTrimestre"></div>
+    <button type="button" class="btn btn-primary" data-toggle="ajax-trimestres" data-target="#addTrimestres"
+            data-url="@Url.Action("_CreateTrimestre")">
+        Agregar Curso
+    </button>
+    <table class="table table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha De Inicio</th>
+                <th>Fecha Finaliza</th>
+                <th>Nivel</th>
+                <th>Numero</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trimestre in ViewBag.Trimestres)
+            {
+                <tr>
+                    <td>@trimestre.Fechaini</td>
+                    <td>@trimestre.Fechafin</td>
+                    <td>@trimestre.Nivel</td>
+                    <td>@trimestre.Numero</td>
+                    <td>
+                        <div id="PlaceHolderTrimestre">
+                            <button type="button" class="btn btn-primary" data-toggle="ajax-editartrimestre" data-target="#EditarTrimestre"
+                                    data-url="@Url.Action("_EditarTrimestre",new {id=trimestre.Trimestreid})">
+                                Editar Seccion
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

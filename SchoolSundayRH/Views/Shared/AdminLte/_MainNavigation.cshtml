@@ -24,7 +24,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+     with font-awesome or any other icon font library -->
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -77,53 +77,87 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a asp-controller="Grupo" asp-action="IndexGrupos" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Grupos</p>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Facturar
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-controller="Factura" asp-action="CreateFactura" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Agrega Factura</p>
+                            </a>
+                        </li>                        
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a asp-controller="Periodo" asp-action="IndexPeriodos" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Periodos</p>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Configurar Escuela
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-controller="Seccion" asp-action="IndexSecciones" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Letras</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-controller="Grado" asp-action="IndexGrados" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Grados</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-controller="Nivel" asp-action="IndexNivel" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Niveles</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-controller="DetalleSecc" asp-action="IndexDetalleSecc" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Secciones</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-controller="Turno" asp-action="IndexTurnos" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Turnos</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a asp-controller="Curso" asp-action="IndexCurso" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Cursos</p>
-                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-controller="Grupo" asp-action="IndexGrupos" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Grupos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Periodo" asp-action="IndexPeriodos" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Periodos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Seccion" asp-action="IndexSecciones" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Letras</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Grado" asp-action="IndexGrados" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Grados</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Nivel" asp-action="IndexNivel" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Niveles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="DetalleSecc" asp-action="IndexDetalleSecc" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Secciones</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Turno" asp-action="IndexTurnos" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Turnos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Curso" asp-action="IndexCurso" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Cursos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Trimestre" asp-action="IndexTrimestre" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Trimestre</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">

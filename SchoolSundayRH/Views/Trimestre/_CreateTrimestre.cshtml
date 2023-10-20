@@ -1,0 +1,49 @@
+﻿@model SchoolSundayRH.Models.Trimestre;
+
+<div class="modal fade" id="addTrimestres">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="addNivelLabel">Crear Trimestre</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Crear Trimestres</h3>
+                        </div>
+                        <form id="trimestreForm" asp-action="_CreateTrimestre">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group" col-md-6>
+                                        <label for="exampleFechaInic">Fecha De Inicio</label>
+                                        <input type="text" class="form-control" asp-for="Fechaini" name="Fechainicio" id="fechaini" placeholder="Fecha Inicial">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group" col-md-6>
+                                        <label for="exampleFechaFin">Fecha Fin</label>
+                                        <input type="text" class="form-control" asp-for="Fechafin" name="Fechafin" id="fechafin" placeholder="Fecha Final">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group" col-md-6>
+                                        <label for="examplenumero">Numero</label>
+                                        <input type="text" class="form-control" asp-for="Numtrimestre" name="numtrimestre" id="numtrimestre" placeholder="Numero De Trimestre">
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary" data-save="modal">Guardar</button>
+                                </div>
+                            </div><!-- /.card-body -->
+                        </form>
+
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

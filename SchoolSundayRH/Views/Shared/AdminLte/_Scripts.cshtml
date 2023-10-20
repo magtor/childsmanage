@@ -29,11 +29,21 @@
             var PlaceHolderNiveles = $('#PlaceHolderNiveles');
             var PlaceHolderTurnos = $('#PlaceHolderTurnos');
             var PlaceHolderCursos = $('#PlaceHolderCursos');
+            var PlaceHolderTrimestre = $('#PlaceHolderTrimestre');
 
             var saveUrl = '@Url.Action("CreatePadreHijos","Pather")';
 
             //$("#seltipoevaluaciones").chosen();
-
+            $("#tableworkded tr").click(function () {
+               // $(this).addClass('selected').siblings().removeClass('selected');
+                //var value = $(this).find('td:first').html();
+                //aqui obtengo los valores de una celda de la columna 1 de la fila seleccionada
+                //con solo cambiar el numero puedo accesar a esa celda
+                var value = $(this).find('td:eq(1)').html();
+              
+                alert(value);
+            });
+            
             $('button[data-toggle="ajax-master"]').click(function (event) {
 
 
@@ -159,7 +169,18 @@
                 });
 
             });
+            $('button[data-toggle="ajax-trimestres"]').click(function (event) {
 
+
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+
+                    PlaceHolderTrimestre.html(data);
+                    PlaceHolderTrimestre.find('.modal').modal('show');
+
+                });
+
+            });
             $("#imageBrowser").change(function () {
                 var File = this.files;
                 if (File && File[0]) {
@@ -604,6 +625,40 @@
            /* $('.listbox').multiselect({
                 includeSelectAllOption: true
             });*/
+            $(document).on('click', '#btnadd', function (e) {
+                e.preventDefault();
+                //alert("El id del button es " + this.id);
+                
+                var table = document.getElementById('tableworkded')
+                var rows = table.getElementsByTagName('tr');
+                var rowOuterHtml = rows[rows.length - 1].outerHTML;
+                //console.log("html " + rowOuterHtml);
+                var lastrowIdx = document.getElementById('hdnLastIndex').value;
+                
+               // var nextrowIdx = eval(lastrowIdx) + 1;
+                var nextrowIdx = parseInt(lastrowIdx) + 1;
+                //document.getElementById('hdnLastIndex').value = nextrowIdx.toString();
+                $("#hdnLastIndex").val(nextrowIdx);
+                console.log(nextrowIdx);
+                var rowidlast = 'id="filaid-' + lastrowIdx + '"';
+                var rowidnew = 'id="filaid-' + nextrowIdx + '"';
+                console.log("id fila nueva " + rowidnew);
+                rowOuterHtml = rowOuterHtml.replaceAll(rowidlast, rowidnew);
+                //rowOuterHtml = rowOuterHtml.replaceAll('[' + lastrowIdx + ']', '[' + nextrowIdx + ']');
+                //  rowOuterHtml = rowOuterHtml.replaceAll("inpcompany-" + lastrowIdx + "'", "inpcompany-" + nextrowIdx + "'");
+
+                var newRow = table.insertRow();
+                newRow.innerHTML = rowOuterHtml;
+                var btnAddID = this.id;
+                var btnDeleteid = btnAddID.replaceAll('btnadd', 'btnremove');
+                var delbtn = document.getElementById(btnDeleteid);
+                delbtn.classList.add("visible");
+                delbtn.classList.remove("invisible");
+                var addbtn = document.getElementById(btnAddID);
+                addbtn.classList.remove("visible");
+                addbtn.classList.add("invisible");
+            });
+
            
     })
 

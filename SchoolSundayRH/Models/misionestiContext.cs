@@ -55,7 +55,7 @@ namespace SchoolSundayRH.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+              #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySql("server=localhost;port=3306;database=misionesti;uid=sergiocm;password=Th2022kkll;ConvertZeroDateTime=True", x => x.ServerVersion("10.4.17-mariadb"));
             }
         }
