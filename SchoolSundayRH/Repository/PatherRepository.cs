@@ -56,6 +56,23 @@ namespace SchoolSundayRH.Repository
                          ).ToList();
             return listPadres;
         }
+        public List<Padres> GetDataPadre(uint idPadre)
+        {
+            List<Padres> listPadres = null;
+            listPadres = (from pt in dbSchoolSunday.Padres
+                          where pt.Padreid == idPadre
+                          select new Padres
+                          {
+                              Padreid = pt.Padreid,
+                              Nombre1 = pt.Nombre1,
+                              Nombre2 = pt.Nombre2,
+                              Apellido1 = pt.Apellido1,
+                              Apellido2 = pt.Apellido2
+
+                          }
+                         ).ToList();
+            return listPadres;
+        }
         public List<Childs> GetListSonFromPather(uint idPadre)
         {
             List<Childs> lstchilds = null;
@@ -73,7 +90,28 @@ namespace SchoolSundayRH.Repository
 
             return lstchilds;
         }
-        
+        public List<Childs> GetListSonFromPather1(uint idPadre)
+        {
+            List<Childs> lstchilds = null;
+            lstchilds = (from hijos in dbSchoolSunday.Childs
+                         join patherson in dbSchoolSunday.Padreshijos on hijos.Childid equals patherson.Childid
+                         where patherson.Padreid == idPadre
+
+                         select new Childs
+                         {
+                             Childid = hijos.Childid,
+                             Nombre1 = hijos.Nombre1,
+                             Nombre2 = hijos.Nombre2,
+                             Apellido1 = hijos.Apellido1,
+                             Apellido2 = hijos.Apellido2,
+                             Photo = hijos.Photo
+
+                         }).ToList();
+
+
+            return lstchilds;
+        }
+
     }
 
 }
